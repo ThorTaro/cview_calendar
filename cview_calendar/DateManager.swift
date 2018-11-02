@@ -61,4 +61,22 @@ class DateManager: NSObject{
         return formatter.string(from: currentMonthOfDates[indexPath.row])
     }
     
+    func prevMonth(_ date: Date) -> Date{
+        currentMonthOfDates = []
+        selectedDate = date.monthAgoDate()
+        let testformatter:DateFormatter = DateFormatter()
+        testformatter.dateFormat = "yyyy/MM/dd HH:mm"
+        print(testformatter.string(from: selectedDate))
+        return selectedDate
+    }
+}
+
+extension Date{
+    func monthAgoDate() -> Date{
+        let addValue = -1
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.month = addValue
+        return calendar.date(byAdding: dateComponents, to: self)!
+    }
 }
