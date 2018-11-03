@@ -54,11 +54,15 @@ class ViewController: UIViewController {
     
     @objc func goprevMonth(sender: UIButton){
         dateManager.prevMonth(dateManager.selectedDate)
+        dateManager.dateForCellAtIndexPath(numberOfItem: dateManager.daysAcquisition())
+        dateLabel.text = dateManager.setDateLabel(index: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd")
         collectionView.reloadData()
     }
     
     @objc func gonextMonth(sender: UIButton){
         dateManager.nextMonth(dateManager.selectedDate)
+        dateManager.dateForCellAtIndexPath(numberOfItem: dateManager.daysAcquisition())
+        dateLabel.text = dateManager.setDateLabel(index: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd")
         collectionView.reloadData()
     }
 }
@@ -80,7 +84,6 @@ extension ViewController:UICollectionViewDataSource{
             cell.textLabel.backgroundColor = .yellow
         }
         
-        
         return cell
     }
     
@@ -88,5 +91,11 @@ extension ViewController:UICollectionViewDataSource{
 }
 
 extension ViewController:UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        dateManager.selectedDate = dateManager.currentMonthOfDates[indexPath.row]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy/MM/dd"
+        dateLabel.text = dateFormatter.string(from: dateManager.selectedDate)
+    }
     
 }
