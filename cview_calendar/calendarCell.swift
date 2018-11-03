@@ -19,7 +19,7 @@ class calendarCell: UICollectionViewCell {
         super.init(frame: frame)
         
         textLabel.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        textLabel.backgroundColor = .yellow
+        //textLabel.backgroundColor = .yellow
         textLabel.textAlignment = NSTextAlignment.center
         
         self.contentView.addSubview(textLabel)

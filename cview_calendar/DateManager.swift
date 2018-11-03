@@ -11,6 +11,28 @@ import UIKit
 class DateManager: NSObject{
     var currentMonthOfDates = [Date]() // 表示する月の日にちを格納する配列
     var selectedDate = Date()
+    
+// 3月31日から1ヶ月前に戻った時にselectedDateがどんな挙動をするのか調べてみたら，2月28日と表示された
+//    var selectedDate = Date()
+//    let dateFormatter = DateFormatter()
+//
+//    override init() {
+//        super.init()
+//        selectedDate = initDate()
+//    }
+//
+//    func initDate() -> Date{
+//        dateFormatter.locale = Locale(identifier: "ja_JP")
+//        dateFormatter.dateFormat = "yyyy/MM/dd"
+//        let date = dateFormatter.date(from: "2018/03/31")!
+//        return date
+//    }
+    
+    override init(){
+        super.init()
+        dateForCellAtIndexPath(numberOfItem: daysAcquisition())
+    }
+    
     let daysPerWeek: Int = 7
     var numberOfItems:Int = 0 // セルの個数
     
@@ -36,6 +58,14 @@ class DateManager: NSObject{
         return firstDateMonth
     }
     
+    func indexOfselectedDate() -> Int{
+        let indexOfFirstDay = Calendar.current.ordinality(of: .day, in: .weekOfMonth, for: firstDateOfMonth())! - 1
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = "d"
+        let indexOfselectedDate: String = formatter.string(from: selectedDate)
+        return Int(indexOfselectedDate)! + indexOfFirstDay - 1
+    }
+    
     
     // numberOfItemsの数だけ日にちを格納する(先月と来月の日にちも含む)
     func dateForCellAtIndexPath(numberOfItem: Int){
@@ -50,22 +80,39 @@ class DateManager: NSObject{
             
             currentMonthOfDates.append(date)
         }
+        print("hay")
     }
     
     // String型へ変換メソッド
-    func conversionDateFormat(indexPath: IndexPath) -> String{
-        dateForCellAtIndexPath(numberOfItem: numberOfItems)
+    func conversionDateFormat(indexPath: IndexPath, format: String) -> String{
+        //dateForCellAtIndexPath(numberOfItem: numberOfItems)
         let formatter: DateFormatter = DateFormatter()
-        formatter.dateFormat = "d"
-        
+        formatter.dateFormat = format
         return formatter.string(from: currentMonthOfDates[indexPath.row])
+    }
+    
+    func setDateLabel(index: Int, format: String) -> String{
+        let formatter: DateFormatter = DateFormatter()
+        formatter.dateFormat = format
+        print(String(index))
+        
+        return formatter.string(from: currentMonthOfDates[index])
     }
     
     func prevMonth(_ date: Date) -> Date{
         currentMonthOfDates = []
         selectedDate = date.monthAgoDate()
         let testformatter:DateFormatter = DateFormatter()
-        testformatter.dateFormat = "yyyy/MM/dd HH:mm"
+        testformatter.dateFormat = "yyyy/MM/dd"
+        print(testformatter.string(from: selectedDate))
+        return selectedDate
+    }
+    
+    func nextMonth(_ date: Date) -> Date{
+        currentMonthOfDates = []
+        selectedDate = date.monthLaterDate()
+        let testformatter: DateFormatter = DateFormatter()
+        testformatter.dateFormat = "yyyy/MM/dd"
         print(testformatter.string(from: selectedDate))
         return selectedDate
     }
@@ -74,6 +121,14 @@ class DateManager: NSObject{
 extension Date{
     func monthAgoDate() -> Date{
         let addValue = -1
+        let calendar = Calendar.current
+        var dateComponents = DateComponents()
+        dateComponents.month = addValue
+        return calendar.date(byAdding: dateComponents, to: self)!
+    }
+    
+    func monthLaterDate() -> Date{
+        let addValue = 1
         let calendar = Calendar.current
         var dateComponents = DateComponents()
         dateComponents.month = addValue
