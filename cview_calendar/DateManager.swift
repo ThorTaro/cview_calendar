@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class DateManager: NSObject{
+    let formatter: DateFormatter = DateFormatter()
     var currentMonthOfDates = [Date]() // 表示する月の日にちを格納する配列
     var selectedDate = Date()
+    let daysPerWeek: Int = 7
+    var numberOfItems:Int = 0 // セルの個数
     
     override init(){
         super.init()
         dateForCellAtIndexPath(numberOfItem: daysAcquisition())
     }
-    
-    let daysPerWeek: Int = 7
-    var numberOfItems:Int = 0 // セルの個数
     
     // 表示するセルの個数を計算するメソッド
     func daysAcquisition() -> Int {
@@ -26,15 +27,11 @@ class DateManager: NSObject{
         guard  let unwrapedRangeOfWeeks = rangeOfWeeks else {
             return numberOfItems
         }
-        
         let numberOfWeeks = unwrapedRangeOfWeeks.count
-        
         numberOfItems = numberOfWeeks * daysPerWeek
-        
         return numberOfItems
     }
     
-    // 選択した月の初日をDate型で返すメソッド
     func firstDateOfMonth() -> Date{
         var components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate)
         components.day = 1
@@ -44,12 +41,10 @@ class DateManager: NSObject{
     
     func indexOfselectedDate() -> Int{
         let indexOfFirstDay = Calendar.current.ordinality(of: .day, in: .weekOfMonth, for: firstDateOfMonth())! - 1
-        let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = "d"
         let indexOfselectedDate: String = formatter.string(from: selectedDate)
         return Int(indexOfselectedDate)! + indexOfFirstDay - 1
     }
-    
     
     // numberOfItemsの数だけ日にちを格納する(先月と来月の日にちも含む)
     func dateForCellAtIndexPath(numberOfItem: Int){
@@ -66,19 +61,14 @@ class DateManager: NSObject{
         }
     }
     
-    // String型へ変換メソッド
-    func conversionDateFormat(indexPath: IndexPath, format: String) -> String{
-        //dateForCellAtIndexPath(numberOfItem: numberOfItems)
-        let formatter: DateFormatter = DateFormatter()
+    func conversionDateFormat(indexPath: Int, format: String) -> String{
         formatter.dateFormat = format
-        return formatter.string(from: currentMonthOfDates[indexPath.row])
+        return formatter.string(from: currentMonthOfDates[indexPath])
     }
     
-    func setDateLabel(index: Int, format: String) -> String{
-        let formatter: DateFormatter = DateFormatter()
+    func dateToString(date: Date, format: String) -> String{
         formatter.dateFormat = format
-        
-        return formatter.string(from: currentMonthOfDates[index])
+        return formatter.string(from: date)
     }
     
     func prevMonth(_ date: Date) -> Date{
