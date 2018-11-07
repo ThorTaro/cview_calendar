@@ -53,7 +53,6 @@ class ViewController: UIViewController {
             thisMonthLabel.textAlignment = NSTextAlignment.center
         return thisMonthLabel
     }()
-    
     lazy var dateLabel:UILabel = {
         let selectedDateLabel = UILabel()
             selectedDateLabel.frame = CGRect(x: self.view.frame.width/4, y: collectionView.frame.maxY, width: self.view.frame.width/2, height: 50)
@@ -65,14 +64,32 @@ class ViewController: UIViewController {
         return selectedDateLabel
 
     }()
-    lazy var eventLabel:UILabel = {
-        let eventTextLabel = UILabel()
-            eventTextLabel.frame = CGRect(x: self.view.frame.width/10, y: dateLabel.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5 * 3)
-            eventTextLabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
-            eventTextLabel.text = "nil"
-            eventTextLabel.textAlignment = NSTextAlignment.center
-            eventTextLabel.textColor = .darkGray
-        return eventTextLabel
+    lazy var morningButton:UIButton = {
+        let morningEventBtn = UIButton()
+            morningEventBtn.frame = CGRect(x: self.view.frame.width/10, y: dateLabel.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
+            morningEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            morningEventBtn.setTitle("Morning is nil", for: UIControl.State())
+            morningEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
+            morningEventBtn.setTitleColor(.darkGray, for: UIControl.State())
+        return morningEventBtn
+    }()
+    lazy var afternoonButton:UIButton = {
+       let afternoonEventBtn = UIButton()
+           afternoonEventBtn.frame = CGRect(x: self.view.frame.width/10, y: morningButton.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
+           afternoonEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+           afternoonEventBtn.setTitle("Afternoon is nil", for: UIControl.State())
+           afternoonEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
+           afternoonEventBtn.setTitleColor(.darkGray, for: UIControl.State())
+       return afternoonEventBtn
+    }()
+    lazy var nightButton:UIButton = {
+        let nightEventBtn = UIButton()
+            nightEventBtn.frame = CGRect(x: self.view.frame.width/10, y: afternoonButton.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
+            nightEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            nightEventBtn.setTitle("Night is nil", for: UIControl.State())
+            nightEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
+            nightEventBtn.setTitleColor(.darkGray, for: UIControl.State())
+        return nightEventBtn
     }()
     
     override func viewDidLoad() {
@@ -85,8 +102,10 @@ class ViewController: UIViewController {
         self.view.addSubview(prevBtn)
         self.view.addSubview(nextBtn)
         self.view.addSubview(dateLabel)
-        self.view.addSubview(eventLabel)
+        self.view.addSubview(morningButton)
+        self.view.addSubview(afternoonButton)
         self.view.addSubview(monthLabel)
+        self.view.addSubview(nightButton)
     }
     
     @objc func goprevMonth(sender: UIButton){
@@ -110,7 +129,7 @@ class ViewController: UIViewController {
     func setupRealm(){
         do {
             let realm = try Realm()
-            let event = [Event(value:["date":"2018/11/07", "text":"散髪に行くよ"]),Event(value: ["date": "2018/12/24"])]
+            let event = [Event(value:["date":"2018/11/09","time":"Morning","text":"起床する"]),Event(value:["date":"2018/11/09","time":"Afternoon","text":"学校へ行く"]),Event(value:["date":"2018/11/09","time":"Night","text":"寝る"])]
             print("Saving")
             try realm.write {
                 realm.deleteAll()
@@ -118,21 +137,31 @@ class ViewController: UIViewController {
                 print("Saved")
             }
         } catch  {
-            print("Error")
+            print("SetUp Error")
         }
     }
     
     func loadEvent(date: String){
         do {
             let realm = try Realm()
-            if let result = realm.objects(Event.self).filter("date = '\(date)'").last{
-                eventLabel.text = result.text
-            } else {
-                eventLabel.text = "Nothing"
+            let result = realm.objects(Event.self).filter("date = '\(date)'")
+            if result.count != 0{
+                for ev in result{
+                    if ev.time == "Morning"{
+                        morningButton.setTitle(ev.text, for: UIControl.State())
+                    }else if ev.time == "Afternoon"{
+                        afternoonButton.setTitle(ev.text, for: UIControl.State())
+                    }else if ev.time == "Night"{
+                        nightButton.setTitle(ev.text, for: UIControl.State())
+                    }
+                }
+            }else{
+                morningButton.setTitle("Nothing", for: UIControl.State())
+                afternoonButton.setTitle("Nothing", for: UIControl.State())
+                nightButton.setTitle("Nothing", for: UIControl.State())
             }
-            
-        } catch {
-            print("Error")
+        } catch  {
+            print("Load Error")
         }
     }
 }
@@ -147,7 +176,6 @@ extension ViewController:UICollectionViewDataSource{
         let cell:calendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath as IndexPath) as! calendarCell
         
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath: indexPath.row, format: "d")
-        cell.textLabel.textColor = cell.setTextColor(date: dateManager.conversionDateFormat(indexPath: indexPath.row, format: "yyyy/MM/dd"))
         
         return cell
     }

@@ -11,5 +11,6 @@ import RealmSwift
 
 class Event: Object{
     @objc dynamic var date: String = ""
+    @objc dynamic var time: String = ""
     @objc dynamic var text: String = ""
 }
