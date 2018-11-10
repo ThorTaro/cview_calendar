@@ -129,7 +129,7 @@ class ViewController: UIViewController {
     func setupRealm(){
         do {
             let realm = try Realm()
-            let event = [Event(value:["date":"2018/11/09","time":"Morning","text":"起床する"]),Event(value:["date":"2018/11/09","time":"Afternoon","text":"学校へ行く"]),Event(value:["date":"2018/11/09","time":"Night","text":"寝る"])]
+            let event = [Event(value:["date":"2018/11/11","time":"Morning","text":"起床する"]),Event(value:["date":"2018/11/10","time":"Afternoon","text":"学校へ行く"]),Event(value:["date":"2018/11/12","time":"Night","text":"寝る"])]
             print("Saving")
             try realm.write {
                 realm.deleteAll()
@@ -145,6 +145,9 @@ class ViewController: UIViewController {
         do {
             let realm = try Realm()
             let result = realm.objects(Event.self).filter("date = '\(date)'")
+            morningButton.setTitle("Nothing", for: UIControl.State())
+            afternoonButton.setTitle("Nothing", for: UIControl.State())
+            nightButton.setTitle("Nothing", for: UIControl.State())
             if result.count != 0{
                 for ev in result{
                     if ev.time == "Morning"{
@@ -155,10 +158,6 @@ class ViewController: UIViewController {
                         nightButton.setTitle(ev.text, for: UIControl.State())
                     }
                 }
-            }else{
-                morningButton.setTitle("Nothing", for: UIControl.State())
-                afternoonButton.setTitle("Nothing", for: UIControl.State())
-                nightButton.setTitle("Nothing", for: UIControl.State())
             }
         } catch  {
             print("Load Error")
