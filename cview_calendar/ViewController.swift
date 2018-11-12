@@ -64,33 +64,42 @@ class ViewController: UIViewController {
         return selectedDateLabel
 
     }()
-    lazy var morningButton:UIButton = {
-        let morningEventBtn = UIButton()
+    lazy var morningButton:timeButton = {
+        let morningEventBtn = timeButton()
             morningEventBtn.frame = CGRect(x: self.view.frame.width/10, y: dateLabel.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
             morningEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
-            morningEventBtn.setTitle("Morning is nil", for: UIControl.State())
+            morningEventBtn.layer.masksToBounds = true
+            morningEventBtn.layer.cornerRadius = morningEventBtn.frame.width/8
+            morningEventBtn.text = "Morning is nil"
+            morningEventBtn.setTitle(morningEventBtn.text, for: UIControl.State())
             morningEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
             morningEventBtn.setTitleColor(.darkGray, for: UIControl.State())
             morningEventBtn.tag = 0
             morningEventBtn.addTarget(self, action: #selector(toEditScreen), for: .touchUpInside)
         return morningEventBtn
     }()
-    lazy var afternoonButton:UIButton = {
-        let afternoonEventBtn = UIButton()
+    lazy var afternoonButton:timeButton = {
+        let afternoonEventBtn = timeButton()
             afternoonEventBtn.frame = CGRect(x: self.view.frame.width/10, y: morningButton.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
             afternoonEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
-            afternoonEventBtn.setTitle("Afternoon is nil", for: UIControl.State())
+            afternoonEventBtn.layer.masksToBounds = true
+            afternoonEventBtn.layer.cornerRadius = afternoonEventBtn.frame.width/8
+            afternoonEventBtn.text = "Afternoon is nil"
+            afternoonEventBtn.setTitle(afternoonEventBtn.text, for: UIControl.State())
             afternoonEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
             afternoonEventBtn.setTitleColor(.darkGray, for: UIControl.State())
             afternoonEventBtn.tag = 1
             afternoonEventBtn.addTarget(self, action: #selector(toEditScreen), for: .touchUpInside)
         return afternoonEventBtn
     }()
-    lazy var nightButton:UIButton = {
-        let nightEventBtn = UIButton()
+    lazy var nightButton:timeButton = {
+        let nightEventBtn = timeButton()
             nightEventBtn.frame = CGRect(x: self.view.frame.width/10, y: afternoonButton.frame.maxY + dateLabel.frame.height/4, width: self.view.frame.width - self.view.frame.width/5, height: (self.view.frame.maxY - dateLabel.frame.maxY)/5)
             nightEventBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
-            nightEventBtn.setTitle("Night is nil", for: UIControl.State())
+            nightEventBtn.layer.masksToBounds = true
+            nightEventBtn.layer.cornerRadius = nightEventBtn.frame.width/8
+            nightEventBtn.text = "Night is nil"
+            nightEventBtn.setTitle(nightEventBtn.text, for: UIControl.State())
             nightEventBtn.titleLabel?.textAlignment = NSTextAlignment.center
             nightEventBtn.setTitleColor(.darkGray, for: UIControl.State())
             nightEventBtn.tag = 2
@@ -137,10 +146,16 @@ class ViewController: UIViewController {
         editScreen.modalTransitionStyle = .coverVertical
         if sender.tag == 0{
             editScreen.editTime = "Morning"
+            editScreen.editText = morningButton.text
+            editScreen.textField.text = morningButton.text
         }else if sender.tag == 1{
             editScreen.editTime = "Afternoon"
+            editScreen.editText = afternoonButton.text
+            editScreen.textField.text = afternoonButton.text
         }else if sender.tag == 2{
             editScreen.editTime = "Night"
+            editScreen.editText = nightButton.text
+            editScreen.textField.text = nightButton.text
         }else{
             editScreen.editTime = "Time is nil"
         }
@@ -150,7 +165,7 @@ class ViewController: UIViewController {
     func setupRealm(){
         do {
             let realm = try Realm()
-            let event = [Event(value:["date":"2018/11/11","time":"Morning","text":"起床する"]),Event(value:["date":"2018/11/10","time":"Afternoon","text":"学校へ行く"]),Event(value:["date":"2018/11/12","time":"Night","text":"寝る"])]
+            let event = [Event(value:["date":"2018/11/11","time":"Morning","text":"掃除とレポート"]),Event(value:["date":"2018/11/11","time":"Afternoon","text":"銀行に行く"]),Event(value:["date":"2018/11/11","time":"Night","text":"早く寝る"])]
             print("Saving")
             try realm.write {
                 realm.deleteAll()
@@ -164,26 +179,32 @@ class ViewController: UIViewController {
     
     func loadEvent(date: String){
         do {
+            print("Date",date,"load...")
             let realm = try Realm()
             let result = realm.objects(Event.self).filter("date = '\(date)'")
-            morningButton.setTitle("Nothing", for: UIControl.State())
-            afternoonButton.setTitle("Nothing", for: UIControl.State())
-            nightButton.setTitle("Nothing", for: UIControl.State())
+            print("Result",result)
+            morningButton.text = " "
+            afternoonButton.text = " "
+            nightButton.text = " "
             if result.count != 0{
                 for ev in result{
                     if ev.time == "Morning"{
-                        morningButton.setTitle(ev.text, for: UIControl.State())
+                        morningButton.text = ev.text
                     }else if ev.time == "Afternoon"{
-                        afternoonButton.setTitle(ev.text, for: UIControl.State())
+                        afternoonButton.text = ev.text
                     }else if ev.time == "Night"{
-                        nightButton.setTitle(ev.text, for: UIControl.State())
+                        nightButton.text = ev.text
                     }
                 }
             }
+            morningButton.setTitle(morningButton.text, for: UIControl.State())
+            afternoonButton.setTitle(afternoonButton.text, for: UIControl.State())
+            nightButton.setTitle(nightButton.text, for: UIControl.State())
         } catch  {
             print("Load Error")
         }
     }
+    
 }
 
 extension ViewController:UICollectionViewDataSource{
@@ -208,4 +229,8 @@ extension ViewController:UICollectionViewDelegate{
         dateLabel.text = today
         loadEvent(date: today)
     }
+}
+
+class timeButton:UIButton{
+    var text:String = "Any event?"
 }
