@@ -18,7 +18,7 @@ class EditViewController: UIViewController {
     lazy var dateLabel:UILabel = {
         let datelabel = UILabel()
             datelabel.frame = CGRect(x: UIScreen.main.bounds.width/4, y: 35, width: UIScreen.main.bounds.width/2, height: 40)
-            datelabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            datelabel.backgroundColor = .white
             datelabel.text = "nil"
             datelabel.textColor = .darkGray
             datelabel.text = editDate
@@ -28,7 +28,7 @@ class EditViewController: UIViewController {
     lazy var timeLabel:UILabel = {
         let timelabel = UILabel()
             timelabel.frame = CGRect(x: UIScreen.main.bounds.width/4, y: dateLabel.frame.maxY, width: UIScreen.main.bounds.width/2, height: 40)
-            timelabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            timelabel.backgroundColor = .white
             timelabel.textColor = .darkGray
             timelabel.text = editTime
             timelabel.textAlignment = NSTextAlignment.center
@@ -66,7 +66,7 @@ class EditViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let colorCView = UICollectionView(frame:CGRect(x: textField.frame.minX, y: textField.frame.maxY + 50, width: textField.frame.width, height: textField.frame.width/6 * 2), collectionViewLayout:layout)
             colorCView.register(colorCell.self, forCellWithReuseIdentifier: "colorCell")
-            colorCView.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            colorCView.backgroundColor = .white
             colorCView.dataSource = self
             colorCView.delegate = self
             layout.itemSize = CGSize(width: colorCView.frame.width/6 - 2, height: colorCView.frame.width/6 - 2)
