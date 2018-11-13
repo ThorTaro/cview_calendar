@@ -11,6 +11,7 @@ import RealmSwift
 
 class ViewController: UIViewController {
     let dateManager = DateManager()
+    let themeColor = color()
     lazy var collectionView:UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: self.view.frame.width/7 - 2, height: self.view.frame.width/7 - 2)
@@ -148,24 +149,28 @@ class ViewController: UIViewController {
             editScreen.editTime = "Morning"
             editScreen.editText = morningButton.text
             editScreen.textField.text = morningButton.text
+            editScreen.themeColor = morningButton.themeColor
         }else if sender.tag == 1{
             editScreen.editTime = "Afternoon"
             editScreen.editText = afternoonButton.text
             editScreen.textField.text = afternoonButton.text
+            editScreen.themeColor = afternoonButton.themeColor
         }else if sender.tag == 2{
             editScreen.editTime = "Night"
             editScreen.editText = nightButton.text
             editScreen.textField.text = nightButton.text
+            editScreen.themeColor = nightButton.themeColor
         }else{
             editScreen.editTime = "Time is nil"
         }
+        editScreen.view.backgroundColor = editScreen.myColor.colorArray[editScreen.themeColor]
         self.present(editScreen, animated: true, completion: nil)
     }
     
     func setupRealm(){
         do {
             let realm = try Realm()
-            let event = [Event(value:["date":"2018/11/11","time":"Morning","text":"掃除とレポート"]),Event(value:["date":"2018/11/11","time":"Afternoon","text":"銀行に行く"]),Event(value:["date":"2018/11/11","time":"Night","text":"早く寝る"])]
+            let event = [Event(value:["date":"2018/11/15","time":"Morning","text":"もしかしたら2コマに講義あるかも","color": "Purple"]),Event(value:["date":"2018/11/15","time":"Afternoon","text":"卒研中間発表","color":"YellowGreen"]),Event(value:["date":"2018/11/15","time":"Night","text":"明日のゼミだるい","color":"Gray"])]
             print("Saving")
             try realm.write {
                 realm.deleteAll()
@@ -184,22 +189,37 @@ class ViewController: UIViewController {
             let result = realm.objects(Event.self).filter("date = '\(date)'")
             print("Result",result)
             morningButton.text = " "
+            morningButton.themeColor = "Default"
             afternoonButton.text = " "
+            afternoonButton.themeColor = "Default"
             nightButton.text = " "
+            nightButton.themeColor = "Default"
             if result.count != 0{
                 for ev in result{
                     if ev.time == "Morning"{
                         morningButton.text = ev.text
+                        if ev.color != "Default"{
+                            morningButton.themeColor = ev.color
+                        }
                     }else if ev.time == "Afternoon"{
                         afternoonButton.text = ev.text
+                        if ev.color != "Default"{
+                            afternoonButton.themeColor = ev.color
+                        }
                     }else if ev.time == "Night"{
                         nightButton.text = ev.text
+                        if ev.color != "Default"{
+                            nightButton.themeColor = ev.color
+                        }
                     }
                 }
             }
             morningButton.setTitle(morningButton.text, for: UIControl.State())
+            morningButton.backgroundColor = themeColor.colorArray[morningButton.themeColor]
             afternoonButton.setTitle(afternoonButton.text, for: UIControl.State())
+            afternoonButton.backgroundColor = themeColor.colorArray[afternoonButton.themeColor]
             nightButton.setTitle(nightButton.text, for: UIControl.State())
+            nightButton.backgroundColor = themeColor.colorArray[nightButton.themeColor]
         } catch  {
             print("Load Error")
         }
@@ -233,4 +253,5 @@ extension ViewController:UICollectionViewDelegate{
 
 class timeButton:UIButton{
     var text:String = "Any event?"
+    var themeColor:String = "Default"
 }

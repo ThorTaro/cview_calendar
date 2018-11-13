@@ -10,9 +10,11 @@ import UIKit
 import RealmSwift
 
 class EditViewController: UIViewController {
+    let myColor = color()
     var editDate:String = "nil"
     var editTime:String = "nil"
     var editText:String = "nil"
+    var themeColor:String = "Default"
     lazy var dateLabel:UILabel = {
         let datelabel = UILabel()
             datelabel.frame = CGRect(x: UIScreen.main.bounds.width/4, y: 35, width: UIScreen.main.bounds.width/2, height: 40)
@@ -35,7 +37,7 @@ class EditViewController: UIViewController {
     lazy var textField:UITextField = {
         let textfield = UITextField()
             textfield.frame = CGRect(x: UIScreen.main.bounds.width/8, y: 150, width: UIScreen.main.bounds.width/8 * 6, height: UIScreen.main.bounds.width/3)
-            textfield.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            textfield.backgroundColor = .white
             textfield.text = "nil"
             textfield.delegate = self
             textfield.clearButtonMode = .always
@@ -60,11 +62,24 @@ class EditViewController: UIViewController {
             cancelBtn.addTarget(self, action: #selector(cancel), for: .touchUpInside)
         return cancelBtn
     }()
+    lazy var colors:UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let colorCView = UICollectionView(frame:CGRect(x: textField.frame.minX, y: textField.frame.maxY + 50, width: textField.frame.width, height: textField.frame.width/6 * 2), collectionViewLayout:layout)
+            colorCView.register(colorCell.self, forCellWithReuseIdentifier: "colorCell")
+            colorCView.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            colorCView.dataSource = self
+            colorCView.delegate = self
+            layout.itemSize = CGSize(width: colorCView.frame.width/6 - 2, height: colorCView.frame.width/6 - 2)
+            layout.minimumLineSpacing = 2
+            layout.minimumInteritemSpacing = 0
+        return colorCView
+    }()
 
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(textField)
+        self.view.addSubview(colors)
         self.view.addSubview(updateButton)
         self.view.addSubview(cancelButton)
         
@@ -74,7 +89,6 @@ class EditViewController: UIViewController {
         super.viewWillAppear(animated)
         let vc = presentingViewController as! ViewController
         editDate = vc.dateManager.dateToString(date: vc.dateManager.selectedDate, format: "yyyy/MM/dd")
-        self.view.backgroundColor = UIColor(red: 255/255, green: 117/255, blue: 195/255, alpha: 1.0)
         self.view.addSubview(dateLabel)
         self.view.addSubview(timeLabel)
     }
@@ -95,9 +109,10 @@ class EditViewController: UIViewController {
             if result.count != 0 {
                 try! realm.write {
                     result.last?.text = editText
+                    result.last?.color = themeColor
                 }
             } else{
-                let event = Event(value:["date":editDate, "time":editTime, "text":editText])
+                let event = Event(value:["date":editDate, "time":editTime, "text":editText, "color":themeColor])
                 try! realm.write {
                     realm.add(event)
                 }
@@ -106,6 +121,7 @@ class EditViewController: UIViewController {
             print("Realm loading error at edit screen")
         }
         (presentingViewController as! ViewController).loadEvent(date: editDate)
+        
         self.dismiss(animated: true, completion: nil)
     }
 }
@@ -118,5 +134,27 @@ extension EditViewController: UITextFieldDelegate{
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         print("Text clear")
         return true
+    }
+}
+
+extension EditViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell:colorCell = colors.cellForItem(at: indexPath) as! colorCell
+        self.view.backgroundColor = cell.cellColor.colorArray[cell.myColor]
+        themeColor = cell.myColor
+    }
+    
+}
+
+extension EditViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 11
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell:colorCell = colors.dequeueReusableCell(withReuseIdentifier: "colorCell", for: indexPath) as! colorCell
+        cell.myColor = cell.cellColor.colorName[indexPath.row]
+        cell.setColor()
+        return cell
     }
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50224089219B404600448721 /* color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50224088219B404600448721 /* color.swift */; };
 		504BBFA921903D920024BE2E /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504BBFA821903D920024BE2E /* RealmData.swift */; };
 		5065A8D5218C4FB600B817C2 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065A8D4218C4FB600B817C2 /* DateManager.swift */; };
 		5086E595218B13180016264A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086E594218B13180016264A /* AppDelegate.swift */; };
@@ -15,12 +16,14 @@
 		5086E59C218B13190016264A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5086E59B218B13190016264A /* Assets.xcassets */; };
 		5086E59F218B13190016264A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5086E59D218B13190016264A /* LaunchScreen.storyboard */; };
 		5086E5A7218B1C210016264A /* calendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086E5A6218B1C210016264A /* calendarCell.swift */; };
+		5088B69C219AD00C00C8B075 /* colorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088B69B219AD00C00C8B075 /* colorCell.swift */; };
 		50926AFD21971C2400D09F46 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50926AFC21971C2400D09F46 /* EditViewController.swift */; };
 		6F7CBF6971C641AFDF0A7DD6 /* Pods_cview_calendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F7C837F7BB2EE578A1B21B3 /* Pods_cview_calendar.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2F7C837F7BB2EE578A1B21B3 /* Pods_cview_calendar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_cview_calendar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		50224088219B404600448721 /* color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = color.swift; sourceTree = "<group>"; };
 		504BBFA821903D920024BE2E /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
 		5065A8D4218C4FB600B817C2 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		5086E591218B13180016264A /* cview_calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cview_calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +34,7 @@
 		5086E59E218B13190016264A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5086E5A0218B13190016264A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5086E5A6218B1C210016264A /* calendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calendarCell.swift; sourceTree = "<group>"; };
+		5088B69B219AD00C00C8B075 /* colorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorCell.swift; sourceTree = "<group>"; };
 		50926AFC21971C2400D09F46 /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		C65118832D2845D5291B919E /* Pods-cview_calendar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cview_calendar.release.xcconfig"; path = "Target Support Files/Pods-cview_calendar/Pods-cview_calendar.release.xcconfig"; sourceTree = "<group>"; };
 		D33CC9575612EDAF8EE4F7B9 /* Pods-cview_calendar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cview_calendar.debug.xcconfig"; path = "Target Support Files/Pods-cview_calendar/Pods-cview_calendar.debug.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +95,8 @@
 				5065A8D4218C4FB600B817C2 /* DateManager.swift */,
 				5086E5A6218B1C210016264A /* calendarCell.swift */,
 				50926AFC21971C2400D09F46 /* EditViewController.swift */,
+				5088B69B219AD00C00C8B075 /* colorCell.swift */,
+				50224088219B404600448721 /* color.swift */,
 				504BBFA821903D920024BE2E /* RealmData.swift */,
 				5086E598218B13180016264A /* Main.storyboard */,
 				5086E59B218B13190016264A /* Assets.xcassets */,
@@ -223,9 +229,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5086E597218B13180016264A /* ViewController.swift in Sources */,
+				5088B69C219AD00C00C8B075 /* colorCell.swift in Sources */,
 				5065A8D5218C4FB600B817C2 /* DateManager.swift in Sources */,
 				50926AFD21971C2400D09F46 /* EditViewController.swift in Sources */,
 				504BBFA921903D920024BE2E /* RealmData.swift in Sources */,
+				50224089219B404600448721 /* color.swift in Sources */,
 				5086E595218B13180016264A /* AppDelegate.swift in Sources */,
 				5086E5A7218B1C210016264A /* calendarCell.swift in Sources */,
 			);
