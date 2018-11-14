@@ -108,6 +108,14 @@ class ViewController: UIViewController {
         return nightEventBtn
     }()
     
+    lazy var graphButton:UIButton = {
+        let toGraphBtn = UIButton()
+            toGraphBtn.frame = CGRect(x: self.view.frame.width/3, y: self.view.frame.height/10 * 9, width: self.view.frame.width/3, height: self.view.frame.height/10)
+            toGraphBtn.backgroundColor = themeColor.colorArray["Default"]
+            toGraphBtn.addTarget(self, action: #selector(toGraph), for: .touchUpInside)
+        return toGraphBtn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -122,6 +130,7 @@ class ViewController: UIViewController {
         self.view.addSubview(morningButton)
         self.view.addSubview(afternoonButton)
         self.view.addSubview(nightButton)
+        self.view.addSubview(graphButton)
     }
     
     @objc func goprevMonth(sender: UIButton){
@@ -165,6 +174,12 @@ class ViewController: UIViewController {
         }
         editScreen.view.backgroundColor = editScreen.myColor.colorArray[editScreen.themeColor]
         self.present(editScreen, animated: true, completion: nil)
+    }
+    
+    @objc func toGraph(sender:UIButton){
+        let graphScreen = GraphViewController()
+        graphScreen.modalTransitionStyle = .flipHorizontal
+        present(graphScreen, animated: true, completion: nil)
     }
     
     func setupRealm(){
