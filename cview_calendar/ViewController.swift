@@ -225,6 +225,28 @@ class ViewController: UIViewController {
         }
     }
     
+    func loadArcColor(date: String) -> (Morning:String, Afternoon:String, Night:String){
+        var MorningArcColor:String = "Default"
+        var AfternoonArcColor:String = "Default"
+        var NightArcColor:String = "Default"
+        do {
+            let realm = try Realm()
+            let result = realm.objects(Event.self).filter("date = '\(date)'")
+            for ev in result{
+                if (ev.time == "Morning") && (ev.color != "Default"){
+                    MorningArcColor = ev.color
+                }else if (ev.time == "Afternoon") && (ev.color != "Default"){
+                    AfternoonArcColor = ev.color
+                }else if (ev.time == "Night") && (ev.color != "Default"){
+                    NightArcColor = ev.color
+                }
+            }
+        } catch {
+            print("Load Error")
+        }
+        return (MorningArcColor, AfternoonArcColor, NightArcColor)
+    }
+    
 }
 
 extension ViewController:UICollectionViewDataSource{
@@ -237,6 +259,9 @@ extension ViewController:UICollectionViewDataSource{
         let cell:calendarCell = collectionView.dequeueReusableCell(withReuseIdentifier: "calendarCell", for: indexPath as IndexPath) as! calendarCell
         
         cell.textLabel.text = dateManager.conversionDateFormat(indexPath: indexPath.row, format: "d")
+        cell.morningArc.fillColor = themeColor.colorArray[loadArcColor(date: dateManager.conversionDateFormat(indexPath: indexPath.row, format: "yyyy/MM/dd")).Morning]?.cgColor
+        cell.afternoonArc.fillColor = themeColor.colorArray[loadArcColor(date: dateManager.conversionDateFormat(indexPath: indexPath.row, format: "yyyy/MM/dd")).Afternoon]?.cgColor
+        cell.nightArc.fillColor = themeColor.colorArray[loadArcColor(date: dateManager.conversionDateFormat(indexPath: indexPath.row, format: "yyyy/MM/dd")).Night]?.cgColor
         
         return cell
     }

@@ -121,6 +121,7 @@ class EditViewController: UIViewController {
             print("Realm loading error at edit screen")
         }
         (presentingViewController as! ViewController).loadEvent(date: editDate)
+        (presentingViewController as! ViewController).collectionView.reloadData()
         
         self.dismiss(animated: true, completion: nil)
     }
