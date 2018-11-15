@@ -138,7 +138,6 @@ class ViewController: UIViewController {
         dateManager.dateForCellAtIndexPath(numberOfItem: dateManager.daysAcquisition())
         let date: String = dateManager.conversionDateFormat(indexPath: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd")
         dateLabel.text = date
-        loadEvent(date: date)
         collectionView.reloadData()
     }
     
@@ -148,6 +147,7 @@ class ViewController: UIViewController {
         let date: String = dateManager.conversionDateFormat(indexPath: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd")
         dateLabel.text = date
         loadEvent(date: date)
+        print(dateManager.getDaysOfMonth())
         collectionView.reloadData()
     }
     
