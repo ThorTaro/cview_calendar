@@ -20,6 +20,15 @@ class GraphViewController: UIViewController {
         }
         return colorrate
     }()
+    
+    let monthLabel:UILabel = {
+        let label = UILabel()
+            label.frame = CGRect(x: UIScreen.main.bounds.width/3, y: UIScreen.main.bounds.height/20, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/16)
+            label.backgroundColor = .white
+            label.textAlignment = .center
+            label.text = "nil"
+        return label
+    }()
     lazy var backButton:UIButton = {
         let backBtn = UIButton()
             backBtn.frame = CGRect(x: self.view.frame.width/3, y: self.view.frame.height/10 * 9, width: self.view.frame.width/3, height: self.view.frame.height/10)
@@ -31,6 +40,7 @@ class GraphViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.view.addSubview(monthLabel)
         self.view.addSubview(backButton)
         
     }
@@ -40,6 +50,7 @@ class GraphViewController: UIViewController {
         let numberOfDays:Array<String> = (presentingViewController as! ViewController).dateManager.getDaysOfMonth()
         calculate(month: numberOfDays)
         makeCircle()
+        monthLabel.text = (presentingViewController as! ViewController).dateManager.dateToString(date: (presentingViewController as! ViewController).dateManager.selectedDate, format: "yyyy/MM")
     }
     
     @objc func goBack(sender: UIButton){
