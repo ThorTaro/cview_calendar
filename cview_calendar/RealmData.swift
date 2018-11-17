@@ -11,5 +11,12 @@ import RealmSwift
 
 class Event: Object{
     @objc dynamic var date: String = ""
+    @objc dynamic var time: String = ""
     @objc dynamic var text: String = ""
+    @objc dynamic var color: String = "Default"
 }
+
+/*
+ DBのファイルの場所
+ print(Realm.Configuration.defaultConfiguration.fileURL!)
+*/

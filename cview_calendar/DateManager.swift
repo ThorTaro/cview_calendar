@@ -61,6 +61,18 @@ class DateManager: NSObject{
         }
     }
     
+    func getDaysOfMonth() -> Array<String>{
+        let range:Range<Int> = Calendar.current.range(of: .day, in: .month, for: selectedDate as Date) ?? 0..<1
+        var components = Calendar.current.dateComponents([.year, .month, .day], from: selectedDate as Date)
+        var dateArray = [String]()
+        for i in range{
+            components.day = i
+            dateArray.append(dateToString(date: Calendar.current.date(from: components)!, format: "yyyy/MM/dd"))
+        }
+        return dateArray
+    }
+    
+    
     func conversionDateFormat(indexPath: Int, format: String) -> String{
         formatter.dateFormat = format
         return formatter.string(from: currentMonthOfDates[indexPath])
