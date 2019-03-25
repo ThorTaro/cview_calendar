@@ -13,7 +13,7 @@ class calendarCell: UICollectionViewCell {
     lazy var textLabel:UILabel = {
         let label = UILabel()
             label.frame = CGRect(x: self.frame.width/6, y: self.frame.height/6, width: self.frame.width/6 * 4, height: self.frame.height/6 * 4)
-            label.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            label.backgroundColor = UIColor(red: 255/255, green: 200/255, blue: 150/255, alpha: 1.0)
             label.textAlignment = NSTextAlignment.center
             label.layer.masksToBounds = true
             label.layer.cornerRadius = label.frame.width/2

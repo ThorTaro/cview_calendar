@@ -24,7 +24,7 @@ class GraphViewController: UIViewController {
     let monthLabel:UILabel = {
         let label = UILabel()
             label.frame = CGRect(x: UIScreen.main.bounds.width/3, y: UIScreen.main.bounds.height/20, width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.height/16)
-            label.backgroundColor = .white
+            label.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
             label.textAlignment = .center
             label.text = "nil"
         return label
@@ -32,14 +32,14 @@ class GraphViewController: UIViewController {
     lazy var backButton:UIButton = {
         let backBtn = UIButton()
             backBtn.frame = CGRect(x: self.view.frame.width/3, y: self.view.frame.height/10 * 9, width: self.view.frame.width/3, height: self.view.frame.height/10)
-            backBtn.backgroundColor = myColor.colorArray["Pink"]
+            backBtn.backgroundColor = myColor.colorArray["Default"]
             backBtn.addTarget(self, action: #selector(goBack), for: .touchUpInside)
         return backBtn
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
         self.view.addSubview(monthLabel)
         self.view.addSubview(backButton)
         

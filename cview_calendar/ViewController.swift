@@ -18,7 +18,8 @@ class ViewController: UIViewController {
         layout.minimumInteritemSpacing = 0.0
         layout.minimumLineSpacing = 4
         let cview = UICollectionView(frame: CGRect(x: 0, y: 80, width: self.view.frame.width, height: (self.view.frame.width/7 + 4) * 6), collectionViewLayout: layout)
-            cview.backgroundColor = UIColor(red: 255/255, green: 117/255, blue: 195/255, alpha: 1.0)
+//            cview.backgroundColor = UIColor(red: 255/255, green: 117/255, blue: 195/255, alpha: 1.0)
+            cview.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
             cview.register(calendarCell.self, forCellWithReuseIdentifier: "calendarCell")
             cview.delegate = self
             cview.dataSource = self
@@ -27,7 +28,9 @@ class ViewController: UIViewController {
     let prevBtn:UIButton = {
         let prevMonthBtn = UIButton()
             prevMonthBtn.frame = CGRect(x: UIScreen.main.bounds.width/15, y: 35, width: UIScreen.main.bounds.width/6, height: 40)
-            prevMonthBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+//            prevMonthBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            prevMonthBtn.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
+        
             prevMonthBtn.setTitle("＜", for: UIControl.State())
             prevMonthBtn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
             prevMonthBtn.setTitleColor(.darkGray, for: UIControl.State())
@@ -37,7 +40,8 @@ class ViewController: UIViewController {
     let nextBtn:UIButton = {
         let nextMonthBtn = UIButton()
             nextMonthBtn.frame = CGRect(x: UIScreen.main.bounds.maxX - (UIScreen.main.bounds.width/6 + UIScreen.main.bounds.width/15), y: 35, width:UIScreen.main.bounds.width/6, height: 40)
-            nextMonthBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+//            nextMonthBtn.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            nextMonthBtn.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
             nextMonthBtn.setTitle("＞", for: UIControl.State())
             nextMonthBtn.titleLabel?.font = UIFont.systemFont(ofSize: 30)
             nextMonthBtn.setTitleColor(.darkGray, for: UIControl.State())
@@ -47,7 +51,8 @@ class ViewController: UIViewController {
     lazy var monthLabel:UILabel = {
         let thisMonthLabel = UILabel()
             thisMonthLabel.frame = CGRect(x:UIScreen.main.bounds.width/4 + UIScreen.main.bounds.width/8, y:35, width:UIScreen.main.bounds.width/4, height:40)
-            thisMonthLabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+//            thisMonthLabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            thisMonthLabel.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
             thisMonthLabel.text = ""
             thisMonthLabel.textColor = .darkGray
             thisMonthLabel.text = dateManager.conversionDateFormat(indexPath: dateManager.indexOfselectedDate(), format: "yyyy/MM")
@@ -57,7 +62,8 @@ class ViewController: UIViewController {
     lazy var dateLabel:UILabel = {
         let selectedDateLabel = UILabel()
             selectedDateLabel.frame = CGRect(x: self.view.frame.width/4, y: collectionView.frame.maxY, width: self.view.frame.width/2, height: 50)
-            selectedDateLabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+//            selectedDateLabel.backgroundColor = UIColor(red: 255/255, green: 201/255, blue: 231/255, alpha: 1.0)
+            selectedDateLabel.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
             selectedDateLabel.text = "nil"
             selectedDateLabel.textColor = .darkGray
             selectedDateLabel.text = dateManager.conversionDateFormat(indexPath: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd")
@@ -121,7 +127,8 @@ class ViewController: UIViewController {
         
         //self.setupRealm()
         self.loadEvent(date: dateManager.conversionDateFormat(indexPath: dateManager.indexOfselectedDate(), format: "yyyy/MM/dd"))
-        self.view.backgroundColor = UIColor(red: 255/255, green: 117/255, blue: 195/255, alpha: 1.0)
+//        self.view.backgroundColor = UIColor(red: 255/255, green: 117/255, blue: 195/255, alpha: 1.0)
+        self.view.backgroundColor = UIColor(red: 255/255, green: 150/255, blue: 50/255, alpha: 1.0)
         self.view.addSubview(collectionView)
         self.view.addSubview(prevBtn)
         self.view.addSubview(nextBtn)

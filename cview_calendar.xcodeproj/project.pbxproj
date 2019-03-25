@@ -13,9 +13,7 @@
 		5065A8D5218C4FB600B817C2 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5065A8D4218C4FB600B817C2 /* DateManager.swift */; };
 		5086E595218B13180016264A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086E594218B13180016264A /* AppDelegate.swift */; };
 		5086E597218B13180016264A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086E596218B13180016264A /* ViewController.swift */; };
-		5086E59A218B13180016264A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5086E598218B13180016264A /* Main.storyboard */; };
 		5086E59C218B13190016264A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5086E59B218B13190016264A /* Assets.xcassets */; };
-		5086E59F218B13190016264A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5086E59D218B13190016264A /* LaunchScreen.storyboard */; };
 		5086E5A7218B1C210016264A /* calendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5086E5A6218B1C210016264A /* calendarCell.swift */; };
 		5088B69C219AD00C00C8B075 /* colorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5088B69B219AD00C00C8B075 /* colorCell.swift */; };
 		50926AFD21971C2400D09F46 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50926AFC21971C2400D09F46 /* EditViewController.swift */; };
@@ -31,9 +29,7 @@
 		5086E591218B13180016264A /* cview_calendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cview_calendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5086E594218B13180016264A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5086E596218B13180016264A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		5086E599218B13180016264A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5086E59B218B13190016264A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		5086E59E218B13190016264A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5086E5A0218B13190016264A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5086E5A6218B1C210016264A /* calendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calendarCell.swift; sourceTree = "<group>"; };
 		5088B69B219AD00C00C8B075 /* colorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = colorCell.swift; sourceTree = "<group>"; };
@@ -101,9 +97,7 @@
 				5088B69B219AD00C00C8B075 /* colorCell.swift */,
 				50224088219B404600448721 /* color.swift */,
 				504BBFA821903D920024BE2E /* RealmData.swift */,
-				5086E598218B13180016264A /* Main.storyboard */,
 				5086E59B218B13190016264A /* Assets.xcassets */,
-				5086E59D218B13190016264A /* LaunchScreen.storyboard */,
 				5086E5A0218B13190016264A /* Info.plist */,
 			);
 			path = cview_calendar;
@@ -169,9 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5086E59F218B13190016264A /* LaunchScreen.storyboard in Resources */,
 				5086E59C218B13190016264A /* Assets.xcassets in Resources */,
-				5086E59A218B13180016264A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,25 +236,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		5086E598218B13180016264A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5086E599218B13180016264A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		5086E59D218B13190016264A /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5086E59E218B13190016264A /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		5086E5A1218B13190016264A /* Debug */ = {
