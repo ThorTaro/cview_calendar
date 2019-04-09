@@ -18,7 +18,7 @@ This project uses this library,
 This library is installed by CocoaPods.
 
 # Environment  
-I tested this project on iPhone XR(iOS12.2) and works correctly.
+I tested this project on iPhone XR(iOS12.2)and XCode(ver.10.2) and it works correctly.
 
 # Usage  
 **Note**  
